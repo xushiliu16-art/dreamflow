@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DreamFlow V3</title>
 <style>
+body{cursor:none;} 
 body::before{content:"";position:fixed;inset:0;background:url('https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;opacity:.18;z-index:-1;} 
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft YaHei",sans-serif;}
 body{background:linear-gradient(135deg,#dbeafe,#eef2ff);}
@@ -36,12 +37,12 @@ button:hover{transform:scale(1.03);}
 .hero:hover{transform:scale(1.01);box-shadow:0 20px 40px rgba(0,0,0,.12);transition:.35s;}
 .dream-item:hover{scale(1.01);transition:.25s;}
 
-#sprite{position:fixed;left:50%;top:50%;width:28px;height:28px;border-radius:50%;pointer-events:none;z-index:9999;background:#ffffff;box-shadow:0 0 8px #fff,0 0 18px #93c5fd,0 0 30px #60a5fa;opacity:1;}
+#sprite{position:fixed;left:50%;top:50%;width:32px;height:32px;pointer-events:none;z-index:9999;font-size:28px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 0 8px rgba(147,197,253,.8));}
 </style>
 </head>
 <body>
 <canvas id="particles"></canvas>
-<div id="sprite"></div>
+<div id="sprite">⭐</div>
 <div class="app">
 
 <div class="sidebar">
