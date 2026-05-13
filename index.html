@@ -30,7 +30,7 @@ button:hover{transform:scale(1.03);}
 
 .logo:hover{transform:rotate(-4deg) scale(1.05);transition:.3s;text-shadow:0 0 12px rgba(59,130,246,.4);} 
 .card{transition:transform .25s ease, box-shadow .25s ease;transform-style:preserve-3d;}
-.card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 18px 35px rgba(0,0,0,.12);} 
+.card:hover{transform:scale(1.02);box-shadow:0 0 20px rgba(96,165,250,.12);} 
 #particles{position:fixed;inset:0;pointer-events:none;z-index:-1;}
 
 .hero:hover{transform:scale(1.01);box-shadow:0 20px 40px rgba(0,0,0,.12);transition:.35s;}
@@ -72,7 +72,7 @@ button:hover{transform:scale(1.03);}
     </div>
 
     <div class="card" onclick="switchPage('checkin', null)" style="cursor:pointer;">
-      <h2>📅 梦境打卡</h2>
+      <h2>📅 今日梦境</h2>
       <p>点击查看本月打卡日历</p>
       <div class="detail-box" id="calendarPanel">
         <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px;">
@@ -92,6 +92,11 @@ button:hover{transform:scale(1.03);}
     <div class="hero">
       <div style="font-size:48px;margin-bottom:10px;">🌙✨</div>
       <h1>欢迎回来</h1>
+      <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;">
+        <button onclick="switchPage('moodPeace', null)" style="background:rgba(255,255,255,.18);">😌 平静</button>
+        <button onclick="switchPage('moodThink', null)" style="background:rgba(255,255,255,.18);">🤔 思考</button>
+        <button onclick="switchPage('moodPower', null)" style="background:rgba(255,255,255,.18);">🔥 高能</button>
+      </div>
       <p>昨晚，你梦见了什么？</p>
     </div>
 
@@ -137,6 +142,38 @@ button:hover{transform:scale(1.03);}
       <h2>我的数据</h2>
       <p>AI解析：15 次</p>
       <p>收藏梦境：8 条</p>
+    </div>
+  </div>
+
+  <div class="page" id="moodPeace">
+    <div class="card">
+      <h2>😌 今日状态：平静</h2>
+      <p>适合回顾、记录和自我整理。</p>
+      <button onclick="switchPage('moodPeaceStep2', null)">继续探索</button>
+    </div>
+  </div>
+
+  <div class="page" id="moodPeaceStep2">
+    <div class="card">
+      <h2>🌙 潜意识建议</h2>
+      <p>今晚适合记录自然类、关系类梦境。</p>
+      <button onclick="switchPage('home', null)">完成</button>
+    </div>
+  </div>
+
+  <div class="page" id="moodThink">
+    <div class="card">
+      <h2>🤔 今日状态：思考</h2>
+      <p>你最近可能在做一些重要决定。</p>
+      <button onclick="switchPage('home', null)">完成</button>
+    </div>
+  </div>
+
+  <div class="page" id="moodPower">
+    <div class="card">
+      <h2>🔥 今日状态：高能</h2>
+      <p>行动欲很强，适合记录挑战型梦境。</p>
+      <button onclick="switchPage('home', null)">完成</button>
     </div>
   </div>
 
@@ -220,6 +257,42 @@ button:hover{transform:scale(1.03);}
   </div>
 
   <div class="page" id="reminder">
+    <div class="card" onclick="switchPage('reminderStep2', null)" style="cursor:pointer;">
+      <h2>⏰ 设置提醒</h2>
+      <p>点击选择提醒模式</p>
+    </div>
+  </div>
+
+  <div class="page" id="reminderStep2">
+    <div class="card" onclick="switchPage('reminderFinal', null)" style="cursor:pointer;">
+      <h2>🌅 起床提醒</h2>
+      <p>07:30 记录梦境</p>
+    </div>
+  </div>
+
+  <div class="page" id="reminderFinal">
+    <div class="card">
+      <h2>提醒已设置</h2>
+      <p>系统将在每天 07:30 提醒你记录梦境。</p>
+      <button onclick="switchPage('home', null)">返回首页</button>
+    </div>
+  </div>
+
+  <div class="page" id="checkin">
+    <div class="card" onclick="switchPage('checkinCalendar', null)" style="cursor:pointer;">
+      <h2>📅 本月打卡</h2>
+      <p>点击进入日历</p>
+    </div>
+  </div>
+
+  <div class="page" id="checkinCalendar">
+    <div class="card" onclick="switchPage('checkinDetail', null)" style="cursor:pointer;">
+      <h2>2026年5月</h2>
+      <p>点击今天查看梦境</p>
+    </div>
+  </div>
+
+  <div class="page" id="checkinDetail">
     <div class="card">
       <h2>⏰ 梦境提醒</h2>
       <p>推荐起床记录时间：07:30</p>
@@ -231,7 +304,8 @@ button:hover{transform:scale(1.03);}
   <div class="page" id="checkin">
     <div class="card">
       <h2>📅 梦境打卡</h2>
-      <p>连续打卡：7天</p>
+      <p>连续打卡：7天
+      <p>梦境标签：#成长 #探索</p></p>
       <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:12px;">
         <div>1✓</div><div>2✓</div><div>3</div><div>4✓</div><div>5</div><div>6✓</div><div>7✓</div>
       </div>
