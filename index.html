@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamFlow</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{
+background:linear-gradient(180deg,#dbeafe,#eff6ff,#ffffff);
+display:flex;
+justify-content:center;
+padding:20px;
+}
+.phone{
+width:390px;
+height:844px;
+background:white;
+border-radius:35px;
+overflow:hidden;
+box-shadow:0 20px 50px rgba(0,0,0,.08);
+position:relative;
+}
+.page{display:none;height:100%;overflow-y:auto;padding-bottom:80px;}
+.active-page{display:block;}
+.header{
+padding:30px 25px 20px;
+background:linear-gradient(135deg,#60a5fa,#8b5cf6);
+color:white;
+}
+.logo{font-size:32px;font-weight:bold;margin-bottom:10px;}
+.subtitle{opacity:.95;line-height:1.5;}
+.content{padding:20px;}
+.section-title{font-size:22px;font-weight:bold;margin:20px 0 15px;color:#1e293b;}
+.card{
+background:#f8fbff;
+padding:18px;
+border-radius:20px;
+margin-bottom:18px;
+}
+.record-btn,.action-btn{
+width:100%;
+padding:16px;
+border:none;
+border-radius:18px;
+background:linear-gradient(135deg,#60a5fa,#8b5cf6);
+color:white;
+font-size:16px;
+font-weight:bold;
+margin-bottom:15px;
+cursor:pointer;
+}
+.dream-item{padding:14px 0;border-bottom:1px solid #e2e8f0;}
+.dream-item:last-child{border:none;}
+.tag{font-size:13px;color:#3b82f6;margin-top:5px;}
+textarea,input{
+width:100%;
+padding:15px;
+border-radius:16px;
+border:1px solid #dbeafe;
+background:#f8fbff;
+margin-bottom:15px;
+font-size:15px;
+}
+textarea{height:140px;resize:none;}
+.community-item{padding:15px 0;border-bottom:1px solid #e2e8f0;}
+.profile-stat{
+text-align:center;
+padding:18px;
+background:#f8fbff;
+border-radius:20px;
+margin-bottom:15px;
+}
+.nav{
+position:absolute;
+bottom:0;
+width:100%;
+display:flex;
+justify-content:space-around;
+padding:18px;
+border-top:1px solid #e2e8f0;
+background:white;
+}
+.nav div{font-size:14px;color:#64748b;cursor:pointer;}
+.nav .active{color:#3b82f6;font-weight:bold;}
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+<!-- Home -->
+<div class="page active-page" id="home">
+<div class="header">
+<div class="logo">☁ DreamFlow</div>
+<div class="subtitle">Good Morning<br>Did you dream last night?</div>
+</div>
+<div class="content">
+<button class="record-btn" onclick="switchPage('record')">🌙 Start Recording</button>
+
+<div class="section-title">AI Insight</div>
+<div class="card">You may be processing old memories and unfinished emotions.</div>
+
+<div class="section-title">Recent Dreams</div>
+<div class="card">
+<div class="dream-item">🌊 Ocean House<div class="tag">Nostalgia</div></div>
+<div class="dream-item">🏫 Back To School<div class="tag">Memory</div></div>
+<div class="dream-item">🏃 Running Dream<div class="tag">Stress</div></div>
+</div>
+</div>
+</div>
+
+<!-- Record -->
+<div class="page" id="record">
+<div class="header">
+<div class="logo">🌙 Record</div>
+<div class="subtitle">Capture your dream before it fades.</div>
+</div>
+<div class="content">
+<input placeholder="Dream Title">
+<textarea placeholder="What did you dream about?"></textarea>
+<button class="action-btn">🎤 Voice Record</button>
+<button class="action-btn">🖼 Upload Image</button>
+<button class="action-btn">✨ AI Analyze Dream</button>
+</div>
+</div>
+
+<!-- Explore -->
+<div class="page" id="explore">
+<div class="header">
+<div class="logo">✨ Explore</div>
+<div class="subtitle">Anonymous dreams from dreamers.</div>
+</div>
+<div class="content">
+<div class="card">
+<div class="community-item">👻 I dreamed of a haunted school...</div>
+<div class="community-item">🌌 I was floating in space...</div>
+<div class="community-item">💙 I met my childhood friend...</div>
+</div>
+</div>
+</div>
+
+<!-- Profile -->
+<div class="page" id="profile">
+<div class="header">
+<div class="logo">👤 Me</div>
+<div class="subtitle">Your dream journey.</div>
+</div>
+<div class="content">
+<div class="profile-stat">📖 Total Dreams: 21</div>
+<div class="profile-stat">🔥 Streak: 7 Days</div>
+<div class="profile-stat">✨ AI Analysis: 15 Times</div>
+</div>
+</div>
+
+<div class="nav">
+<div onclick="switchPage('home')" class="active" id="nav-home">Home</div>
+<div onclick="switchPage('record')" id="nav-record">Record</div>
+<div onclick="switchPage('explore')" id="nav-explore">Explore</div>
+<div onclick="switchPage('profile')" id="nav-profile">Me</div>
+</div>
+
+</div>
+
+<script>
+function switchPage(pageId){
+  document.querySelectorAll('.page').forEach(page=>page.classList.remove('active-page'));
+  document.getElementById(pageId).classList.add('active-page');
+
+  document.querySelectorAll('.nav div').forEach(nav=>nav.classList.remove('active'));
+  document.getElementById('nav-'+pageId).classList.add('active');
+}
+</script>
+
+</body>
+</html>
