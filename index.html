@@ -141,6 +141,10 @@ button:hover{transform:scale(1.03);}
   </div>
 
   <div class="page" id="trend">
+    <div class="card" onclick="switchPage('emotionSelect', null)" style="cursor:pointer;">
+      <h2>🌌 进入情绪探索</h2>
+      <p>点击开始探索你的潜意识。</p>
+    </div>
     <div class="card">
       <h2>📊 梦境趋势分析</h2>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0;">
@@ -173,6 +177,45 @@ button:hover{transform:scale(1.03);}
       <p>平均记录时长：126字</p>
       <p>主要情绪：探索、成长、怀旧</p>
       <button onclick="switchPage('home', document.querySelector('.menu-item'))">返回首页</button>
+    </div>
+  </div>
+
+  <div class="page" id="emotionSelect">
+    <div class="card" onclick="switchPage('emotionPeace', null)" style="cursor:pointer;">😌 平静型梦境</div>
+    <div class="card" onclick="switchPage('emotionThink', null)" style="cursor:pointer;">🤔 思考型梦境</div>
+    <div class="card" onclick="switchPage('emotionNostalgia', null)" style="cursor:pointer;">😔 怀旧型梦境</div>
+  </div>
+
+  <div class="page" id="emotionPeace">
+    <div class="card">
+      <h2>😌 平静型梦境</h2>
+      <p>最近出现：8次</p>
+      <p>关键词：海边、月光、散步</p>
+      <button onclick="switchPage('aiPeace', null)">查看AI建议</button>
+    </div>
+  </div>
+
+  <div class="page" id="aiPeace">
+    <div class="card">
+      <h2>🧠 AI建议</h2>
+      <p>最近你正在恢复能量，建议记录更多自然相关梦境。</p>
+      <button onclick="switchPage('home', null)">返回首页</button>
+    </div>
+  </div>
+
+  <div class="page" id="emotionThink">
+    <div class="card">
+      <h2>🤔 思考型梦境</h2>
+      <p>最近出现：5次</p>
+      <p>关键词：选择、考试、工作</p>
+    </div>
+  </div>
+
+  <div class="page" id="emotionNostalgia">
+    <div class="card">
+      <h2>😔 怀旧型梦境</h2>
+      <p>最近出现：6次</p>
+      <p>关键词：童年、故乡、学校</p>
     </div>
   </div>
 
