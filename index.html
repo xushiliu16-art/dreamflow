@@ -49,6 +49,35 @@ button:hover{transform:scale(1.03);}
 <div class="main">
 
   <div class="page active-page" id="home">
+    <div class="card" onclick="toggleDetail('trendPanel')" style="cursor:pointer;">
+      <h2>📊 今日梦境趋势</h2>
+      <p>点击查看最近梦境统计</p>
+      <div class="detail-box" id="trendPanel">
+        本周记录：7次<br>
+        平均梦境长度：126字<br>
+        情绪趋势：平静↑ 探索↑ 焦虑↓
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('alarmPanel')" style="cursor:pointer;">
+      <h2>⏰ AI 每日提醒</h2>
+      <p>点击设置起床记录提醒</p>
+      <div class="detail-box" id="alarmPanel">
+        建议提醒时间：07:30<br>
+        睡醒后 5 分钟内记录，梦境记忆更完整。
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('calendarPanel')" style="cursor:pointer;">
+      <h2>📅 梦境打卡</h2>
+      <p>点击查看本月打卡日历</p>
+      <div class="detail-box" id="calendarPanel">
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px;">
+          <div>1✓</div><div>2✓</div><div>3</div><div>4✓</div><div>5</div><div>6✓</div><div>7✓</div>
+          <div>8</div><div>9✓</div><div>10</div><div>11✓</div><div>12</div><div>13✓</div><div>14✓</div>
+        </div>
+      </div>
+    </div>
     <div class="card">
       <h2>今日梦境趋势</h2>
       <p>最近 7 天，你的梦境主题主要集中在：成长、怀旧、探索。</p>
@@ -58,6 +87,7 @@ button:hover{transform:scale(1.03);}
       <p>睡前减少电子设备使用，可以提升梦境回忆率。</p>
     </div>
     <div class="hero">
+      <div style="font-size:48px;margin-bottom:10px;">🌙✨</div>
       <h1>欢迎回来</h1>
       <p>昨晚，你梦见了什么？</p>
     </div>
