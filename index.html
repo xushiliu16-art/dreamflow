@@ -37,12 +37,12 @@ button:hover{transform:scale(1.03);}
 .hero:hover{transform:scale(1.01);box-shadow:0 20px 40px rgba(0,0,0,.12);transition:.35s;}
 .dream-item:hover{scale(1.01);transition:.25s;}
 
-#sprite{position:fixed;left:50%;top:50%;width:32px;height:32px;pointer-events:none;z-index:9999;font-size:28px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 0 8px rgba(147,197,253,.8));}
+#sprite{position:fixed;left:50%;top:50%;width:32px;height:32px;pointer-events:none;z-index:9999;font-size:28px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 0 8px rgba(147,197,253,.8)) drop-shadow(0 0 18px rgba(255,255,255,.6));}
 </style>
 </head>
 <body>
 <canvas id="particles"></canvas>
-<div id="sprite">⭐</div>
+<div id="sprite">☄️</div>
 <div class="app">
 
 <div class="sidebar">
@@ -382,6 +382,7 @@ let particles=[];
 function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 resizeCanvas();window.addEventListener('resize',resizeCanvas);
 window.addEventListener('mousemove',(e)=>{
+ for(let i=0;i<2;i++) particles.push({x:e.clientX,y:e.clientY,vx:(Math.random()-.5)*1.2,vy:(Math.random()-.5)*1.2,size:Math.random()*2+1,life:30});
  for(let i=0;i<3;i++) particles.push({x:e.clientX,y:e.clientY,vx:(Math.random()-.5)*2,vy:(Math.random()-.5)*2,size:Math.random()*3+1,life:50});
 });
 function animate(){
