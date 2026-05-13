@@ -1,318 +1,145 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DreamFlow</title>
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Microsoft YaHei",sans-serif;
-}
-
-body{
-background:#f5f7fb;
-}
-
-.app{
-display:flex;
-height:100vh;
-}
-
-/* 左侧导航 */
-.sidebar{
-width:240px;
-background:white;
-border-right:1px solid #e5e7eb;
-padding:30px 20px;
-}
-
-.logo{
-font-size:28px;
-font-weight:bold;
-color:#3b82f6;
-margin-bottom:40px;
-}
-
-.menu-item{
-padding:15px;
-margin-bottom:10px;
-border-radius:12px;
-cursor:pointer;
-transition:.2s;
-}
-
-.menu-item:hover{
-background:#eff6ff;
-}
-
-.active{
-background:#dbeafe;
-color:#2563eb;
-font-weight:bold;
-}
-
-/* 主区域 */
-.main{
-flex:1;
-padding:40px;
-overflow-y:auto;
-}
-
-.page{
-display:none;
-}
-
-.active-page{
-display:block;
-}
-
-.title{
-font-size:32px;
-font-weight:bold;
-margin-bottom:30px;
-color:#1e293b;
-}
-
-.card{
-background:white;
-padding:25px;
-border-radius:18px;
-box-shadow:0 4px 12px rgba(0,0,0,.04);
-margin-bottom:25px;
-}
-
-input,textarea{
-width:100%;
-padding:15px;
-border:1px solid #dbeafe;
-border-radius:12px;
-margin-bottom:15px;
-font-size:16px;
-}
-
-textarea{
-height:180px;
-resize:none;
-}
-
-button{
-padding:14px 25px;
-border:none;
-border-radius:12px;
-background:#3b82f6;
-color:white;
-cursor:pointer;
-font-size:16px;
-}
-
-.preview-img{
-margin-top:20px;
-max-width:300px;
-border-radius:12px;
-display:none;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DreamFlow</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+    body{display:flex;background:#f5f7fb;color:#222}
+    .sidebar{width:240px;height:100vh;background:#111827;color:white;padding:30px}
+    .logo{font-size:28px;font-weight:bold;margin-bottom:40px;color:#60a5fa}
+    .menu-item{padding:14px;margin-bottom:12px;border-radius:10px;cursor:pointer}
+    .menu-item:hover{background:#1f2937}
+    .main{flex:1;padding:40px}
+    .card{background:white;border-radius:16px;padding:24px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+    input,textarea{width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:8px}
+    button{background:#2563eb;color:white;border:none;padding:12px 18px;border-radius:8px;cursor:pointer;margin-top:12px}
+    .hidden{display:none}
+    .dream-item{border-bottom:1px solid #eee;padding:12px 0}
+  </style>
 </head>
-
 <body>
+  <div class="sidebar">
+    <div class="logo">DreamFlow</div>
+    <div class="menu-item" onclick="showPage('dashboard')">首页</div>
+    <div class="menu-item" onclick="showPage('dreams')">梦境记录</div>
+    <div class="menu-item" onclick="logout()">退出登录</div>
+  </div>
 
-<div class="app">
+  <div class="main">
+    <div id="authPage">
+      <div class="card">
+        <h2>注册 / 登录</h2>
+        <input id="email" placeholder="邮箱" />
+        <input id="password" type="password" placeholder="密码" />
+        <button onclick="register()">注册</button>
+        <button onclick="login()">登录</button>
+      </div>
+    </div>
 
-<!-- 左侧导航 -->
-<div class="sidebar">
+    <div id="appPage" class="hidden">
+      <div id="dashboard" class="page">
+        <div class="card">
+          <h2>欢迎回来</h2>
+          <p>你的专属梦境空间。</p>
+        </div>
+      </div>
 
-<div class="logo">
-DreamFlow
-</div>
+      <div id="dreams" class="page hidden">
+        <div class="card">
+          <h2>记录梦境</h2>
+          <input id="dreamTitle" placeholder="梦境标题" />
+          <textarea id="dreamContent" rows="6" placeholder="写下你的梦..."></textarea>
+          <button onclick="saveDream()">保存梦境</button>
+        </div>
 
-<div class="menu-item active" onclick="switchPage('home',this)">
-首页
-</div>
-
-<div class="menu-item" onclick="switchPage('record',this)">
-记录梦境
-</div>
-
-<div class="menu-item" onclick="switchPage('ai',this)">
-AI解析
-</div>
-
-<div class="menu-item" onclick="switchPage('community',this)">
-梦境社区
-</div>
-
-<div class="menu-item" onclick="switchPage('profile',this)">
-我的
-</div>
-
-</div>
-
-<!-- 主区域 -->
-<div class="main">
-
-<!-- 首页 -->
-<div class="page active-page" id="home">
-
-<div class="title">
-欢迎回来
-</div>
-
-<div class="card">
-你已经记录了 <b>21</b> 个梦境。
-</div>
-
-<div class="card">
-连续记录：<b>7天</b>
-</div>
-
-</div>
-
-
-<!-- 记录页 -->
-<div class="page" id="record">
-
-<div class="title">
-记录梦境
-</div>
-
-<div class="card">
-
-<input id="dreamTitle" placeholder="请输入梦境标题">
-
-<textarea id="dreamContent" placeholder="今天梦到了什么？"></textarea>
-
-<input type="file" id="uploadImage">
-
-<img id="preview" class="preview-img">
-
-<br><br>
-
-<button onclick="saveDream()">
-保存梦境
-</button>
-
-</div>
-
-</div>
-
-
-<!-- AI -->
-<div class="page" id="ai">
-
-<div class="title">
-AI解梦
-</div>
-
-<div class="card">
-输入梦境后，这里未来会接入 AI 分析。
-</div>
-
-</div>
-
-
-<!-- 社区 -->
-<div class="page" id="community">
-
-<div class="title">
-梦境社区
-</div>
-
-<div class="card">
-👻 昨晚梦到了童年的学校...
-</div>
-
-<div class="card">
-🌌 梦见自己在宇宙漂浮...
-</div>
-
-</div>
-
-
-<!-- 我的 -->
-<div class="page" id="profile">
-
-<div class="title">
-我的数据
-</div>
-
-<div class="card">
-总记录：21
-</div>
-
-<div class="card">
-AI分析：15次
-</div>
-
-</div>
-
-</div>
-
-</div>
+        <div class="card">
+          <h2>我的梦境</h2>
+          <div id="dreamList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
+const SUPABASE_URL = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmbW9vYnJ3eHR3cmJ2d3BsdWd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2OTQ4MDMsImV4cCI6MjA5NDI3MDgwM30.WDaaM7X753vnmVomMvUi9YLbms7BycE-PdDKLtWQUyQ';
+const SUPABASE_ANON_KEY = 'https://vfmoobrwxtwrbvwpplugy.supabase.co';
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-function switchPage(pageId,element){
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
 
-document.querySelectorAll('.page').forEach(page=>{
-page.classList.remove('active-page')
+async function register(){
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const {error} = await client.auth.signUp({email,password});
+  alert(error ? error.message : '注册成功，请登录邮箱验证');
+}
+
+async function login(){
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const {error} = await client.auth.signInWithPassword({email,password});
+  if(error) return alert(error.message);
+  enterApp();
+}
+
+async function logout(){
+  await client.auth.signOut();
+  location.reload();
+}
+
+async function enterApp(){
+  document.getElementById('authPage').classList.add('hidden');
+  document.getElementById('appPage').classList.remove('hidden');
+  loadDreams();
+}
+
+async function saveDream(){
+  const user = (await client.auth.getUser()).data.user;
+  const title = document.getElementById('dreamTitle').value;
+  const content = document.getElementById('dreamContent').value;
+
+  const {error} = await client.from('dreams').insert({
+    user_id:user.id,
+    title,
+    content
+  });
+
+  if(error) return alert(error.message);
+  alert('保存成功');
+  loadDreams();
+}
+
+async function loadDreams(){
+  const user = (await client.auth.getUser()).data.user;
+
+  const {data} = await client
+    .from('dreams')
+    .select('*')
+    .eq('user_id', user.id)
+    .order('created_at',{ascending:false});
+
+  const list = document.getElementById('dreamList');
+  list.innerHTML = '';
+
+  data?.forEach(item=>{
+    list.innerHTML += `
+      <div class="dream-item">
+        <h4>${item.title}</h4>
+        <p>${item.content}</p>
+      </div>
+    `;
+  })
+}
+
+client.auth.getSession().then(({data})=>{
+  if(data.session) enterApp();
 });
-
-document.getElementById(pageId).classList.add('active-page');
-
-document.querySelectorAll('.menu-item').forEach(item=>{
-item.classList.remove('active')
-});
-
-element.classList.add('active');
-
-}
-
-/* 图片上传预览 */
-document.getElementById("uploadImage").addEventListener("change",function(e){
-
-const file=e.target.files[0];
-
-if(file){
-
-const reader=new FileReader();
-
-reader.onload=function(event){
-
-const preview=document.getElementById("preview");
-
-preview.src=event.target.result;
-
-preview.style.display="block";
-
-}
-
-reader.readAsDataURL(file);
-
-}
-
-});
-
-
-/* 本地保存 */
-function saveDream(){
-
-const title=document.getElementById("dreamTitle").value;
-
-const content=document.getElementById("dreamContent").value;
-
-localStorage.setItem("dreamTitle",title);
-
-localStorage.setItem("dreamContent",content);
-
-alert("保存成功！");
-
-}
-
 </script>
-
 </body>
 </html>
