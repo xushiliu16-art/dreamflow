@@ -1,175 +1,317 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DreamFlow</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Microsoft YaHei",sans-serif;
+}
+
 body{
-background:linear-gradient(180deg,#dbeafe,#eff6ff,#ffffff);
+background:#f5f7fb;
+}
+
+.app{
 display:flex;
-justify-content:center;
-padding:20px;
+height:100vh;
 }
-.phone{
-width:390px;
-height:844px;
+
+/* 左侧导航 */
+.sidebar{
+width:240px;
 background:white;
-border-radius:35px;
-overflow:hidden;
-box-shadow:0 20px 50px rgba(0,0,0,.08);
-position:relative;
+border-right:1px solid #e5e7eb;
+padding:30px 20px;
 }
-.page{display:none;height:100%;overflow-y:auto;padding-bottom:80px;}
-.active-page{display:block;}
-.header{
-padding:30px 25px 20px;
-background:linear-gradient(135deg,#60a5fa,#8b5cf6);
-color:white;
-}
-.logo{font-size:32px;font-weight:bold;margin-bottom:10px;}
-.subtitle{opacity:.95;line-height:1.5;}
-.content{padding:20px;}
-.section-title{font-size:22px;font-weight:bold;margin:20px 0 15px;color:#1e293b;}
-.card{
-background:#f8fbff;
-padding:18px;
-border-radius:20px;
-margin-bottom:18px;
-}
-.record-btn,.action-btn{
-width:100%;
-padding:16px;
-border:none;
-border-radius:18px;
-background:linear-gradient(135deg,#60a5fa,#8b5cf6);
-color:white;
-font-size:16px;
+
+.logo{
+font-size:28px;
 font-weight:bold;
-margin-bottom:15px;
-cursor:pointer;
+color:#3b82f6;
+margin-bottom:40px;
 }
-.dream-item{padding:14px 0;border-bottom:1px solid #e2e8f0;}
-.dream-item:last-child{border:none;}
-.tag{font-size:13px;color:#3b82f6;margin-top:5px;}
-textarea,input{
+
+.menu-item{
+padding:15px;
+margin-bottom:10px;
+border-radius:12px;
+cursor:pointer;
+transition:.2s;
+}
+
+.menu-item:hover{
+background:#eff6ff;
+}
+
+.active{
+background:#dbeafe;
+color:#2563eb;
+font-weight:bold;
+}
+
+/* 主区域 */
+.main{
+flex:1;
+padding:40px;
+overflow-y:auto;
+}
+
+.page{
+display:none;
+}
+
+.active-page{
+display:block;
+}
+
+.title{
+font-size:32px;
+font-weight:bold;
+margin-bottom:30px;
+color:#1e293b;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:18px;
+box-shadow:0 4px 12px rgba(0,0,0,.04);
+margin-bottom:25px;
+}
+
+input,textarea{
 width:100%;
 padding:15px;
-border-radius:16px;
 border:1px solid #dbeafe;
-background:#f8fbff;
+border-radius:12px;
 margin-bottom:15px;
-font-size:15px;
+font-size:16px;
 }
-textarea{height:140px;resize:none;}
-.community-item{padding:15px 0;border-bottom:1px solid #e2e8f0;}
-.profile-stat{
-text-align:center;
-padding:18px;
-background:#f8fbff;
-border-radius:20px;
-margin-bottom:15px;
+
+textarea{
+height:180px;
+resize:none;
 }
-.nav{
-position:absolute;
-bottom:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-padding:18px;
-border-top:1px solid #e2e8f0;
-background:white;
+
+button{
+padding:14px 25px;
+border:none;
+border-radius:12px;
+background:#3b82f6;
+color:white;
+cursor:pointer;
+font-size:16px;
 }
-.nav div{font-size:14px;color:#64748b;cursor:pointer;}
-.nav .active{color:#3b82f6;font-weight:bold;}
+
+.preview-img{
+margin-top:20px;
+max-width:300px;
+border-radius:12px;
+display:none;
+}
 </style>
 </head>
+
 <body>
 
-<div class="phone">
+<div class="app">
 
-<!-- Home -->
+<!-- 左侧导航 -->
+<div class="sidebar">
+
+<div class="logo">
+DreamFlow
+</div>
+
+<div class="menu-item active" onclick="switchPage('home',this)">
+首页
+</div>
+
+<div class="menu-item" onclick="switchPage('record',this)">
+记录梦境
+</div>
+
+<div class="menu-item" onclick="switchPage('ai',this)">
+AI解析
+</div>
+
+<div class="menu-item" onclick="switchPage('community',this)">
+梦境社区
+</div>
+
+<div class="menu-item" onclick="switchPage('profile',this)">
+我的
+</div>
+
+</div>
+
+<!-- 主区域 -->
+<div class="main">
+
+<!-- 首页 -->
 <div class="page active-page" id="home">
-<div class="header">
-<div class="logo">☁ DreamFlow</div>
-<div class="subtitle">Good Morning<br>Did you dream last night?</div>
+
+<div class="title">
+欢迎回来
 </div>
-<div class="content">
-<button class="record-btn" onclick="switchPage('record')">🌙 Start Recording</button>
 
-<div class="section-title">AI Insight</div>
-<div class="card">You may be processing old memories and unfinished emotions.</div>
-
-<div class="section-title">Recent Dreams</div>
 <div class="card">
-<div class="dream-item">🌊 Ocean House<div class="tag">Nostalgia</div></div>
-<div class="dream-item">🏫 Back To School<div class="tag">Memory</div></div>
-<div class="dream-item">🏃 Running Dream<div class="tag">Stress</div></div>
-</div>
-</div>
+你已经记录了 <b>21</b> 个梦境。
 </div>
 
-<!-- Record -->
+<div class="card">
+连续记录：<b>7天</b>
+</div>
+
+</div>
+
+
+<!-- 记录页 -->
 <div class="page" id="record">
-<div class="header">
-<div class="logo">🌙 Record</div>
-<div class="subtitle">Capture your dream before it fades.</div>
-</div>
-<div class="content">
-<input placeholder="Dream Title">
-<textarea placeholder="What did you dream about?"></textarea>
-<button class="action-btn">🎤 Voice Record</button>
-<button class="action-btn">🖼 Upload Image</button>
-<button class="action-btn">✨ AI Analyze Dream</button>
-</div>
+
+<div class="title">
+记录梦境
 </div>
 
-<!-- Explore -->
-<div class="page" id="explore">
-<div class="header">
-<div class="logo">✨ Explore</div>
-<div class="subtitle">Anonymous dreams from dreamers.</div>
-</div>
-<div class="content">
 <div class="card">
-<div class="community-item">👻 I dreamed of a haunted school...</div>
-<div class="community-item">🌌 I was floating in space...</div>
-<div class="community-item">💙 I met my childhood friend...</div>
-</div>
-</div>
+
+<input id="dreamTitle" placeholder="请输入梦境标题">
+
+<textarea id="dreamContent" placeholder="今天梦到了什么？"></textarea>
+
+<input type="file" id="uploadImage">
+
+<img id="preview" class="preview-img">
+
+<br><br>
+
+<button onclick="saveDream()">
+保存梦境
+</button>
+
 </div>
 
-<!-- Profile -->
+</div>
+
+
+<!-- AI -->
+<div class="page" id="ai">
+
+<div class="title">
+AI解梦
+</div>
+
+<div class="card">
+输入梦境后，这里未来会接入 AI 分析。
+</div>
+
+</div>
+
+
+<!-- 社区 -->
+<div class="page" id="community">
+
+<div class="title">
+梦境社区
+</div>
+
+<div class="card">
+👻 昨晚梦到了童年的学校...
+</div>
+
+<div class="card">
+🌌 梦见自己在宇宙漂浮...
+</div>
+
+</div>
+
+
+<!-- 我的 -->
 <div class="page" id="profile">
-<div class="header">
-<div class="logo">👤 Me</div>
-<div class="subtitle">Your dream journey.</div>
-</div>
-<div class="content">
-<div class="profile-stat">📖 Total Dreams: 21</div>
-<div class="profile-stat">🔥 Streak: 7 Days</div>
-<div class="profile-stat">✨ AI Analysis: 15 Times</div>
-</div>
+
+<div class="title">
+我的数据
 </div>
 
-<div class="nav">
-<div onclick="switchPage('home')" class="active" id="nav-home">Home</div>
-<div onclick="switchPage('record')" id="nav-record">Record</div>
-<div onclick="switchPage('explore')" id="nav-explore">Explore</div>
-<div onclick="switchPage('profile')" id="nav-profile">Me</div>
+<div class="card">
+总记录：21
+</div>
+
+<div class="card">
+AI分析：15次
+</div>
+
+</div>
+
 </div>
 
 </div>
 
 <script>
-function switchPage(pageId){
-  document.querySelectorAll('.page').forEach(page=>page.classList.remove('active-page'));
-  document.getElementById(pageId).classList.add('active-page');
 
-  document.querySelectorAll('.nav div').forEach(nav=>nav.classList.remove('active'));
-  document.getElementById('nav-'+pageId).classList.add('active');
+function switchPage(pageId,element){
+
+document.querySelectorAll('.page').forEach(page=>{
+page.classList.remove('active-page')
+});
+
+document.getElementById(pageId).classList.add('active-page');
+
+document.querySelectorAll('.menu-item').forEach(item=>{
+item.classList.remove('active')
+});
+
+element.classList.add('active');
+
 }
+
+/* 图片上传预览 */
+document.getElementById("uploadImage").addEventListener("change",function(e){
+
+const file=e.target.files[0];
+
+if(file){
+
+const reader=new FileReader();
+
+reader.onload=function(event){
+
+const preview=document.getElementById("preview");
+
+preview.src=event.target.result;
+
+preview.style.display="block";
+
+}
+
+reader.readAsDataURL(file);
+
+}
+
+});
+
+
+/* 本地保存 */
+function saveDream(){
+
+const title=document.getElementById("dreamTitle").value;
+
+const content=document.getElementById("dreamContent").value;
+
+localStorage.setItem("dreamTitle",title);
+
+localStorage.setItem("dreamContent",content);
+
+alert("保存成功！");
+
+}
+
 </script>
 
 </body>
