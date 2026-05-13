@@ -36,7 +36,7 @@ button:hover{transform:scale(1.03);}
 .hero:hover{transform:scale(1.01);box-shadow:0 20px 40px rgba(0,0,0,.12);transition:.35s;}
 .dream-item:hover{scale(1.01);transition:.25s;}
 
-#sprite{position:fixed;width:26px;height:26px;border-radius:50%;pointer-events:none;z-index:9999;background:radial-gradient(circle,#fff,#93c5fd,#60a5fa);box-shadow:0 0 20px rgba(147,197,253,.8);transition:transform .18s ease-out,left .18s ease-out,top .18s ease-out;}
+#sprite{position:fixed;left:50%;top:50%;width:28px;height:28px;border-radius:50%;pointer-events:none;z-index:9999;background:#ffffff;box-shadow:0 0 8px #fff,0 0 18px #93c5fd,0 0 30px #60a5fa;opacity:1;}
 </style>
 </head>
 <body>
@@ -398,14 +398,10 @@ function animate(){
 animate();
 
 const sprite=document.getElementById('sprite');
-let mx=window.innerWidth/2,my=window.innerHeight/2;
 window.addEventListener('mousemove',(e)=>{
- mx=e.clientX+18;
- my=e.clientY+18;
- sprite.style.left=mx+'px';
- sprite.style.top=my+'px';
+ sprite.style.left=(e.clientX+15)+'px';
+ sprite.style.top=(e.clientY+15)+'px';
 });
-let pulse=1;
 setInterval(()=>{
  pulse = pulse===1 ? 1.08 : 1;
  sprite.style.transform=`scale(${pulse})`;
