@@ -49,7 +49,7 @@ button:hover{transform:scale(1.03);}
 <div class="main">
 
   <div class="page active-page" id="home">
-    <div class="card" onclick="toggleDetail('trendPanel')" style="cursor:pointer;">
+    <div class="card" onclick="switchPage('trend', null)" style="cursor:pointer;">
       <h2>📊 今日梦境趋势</h2>
       <p>点击查看最近梦境统计</p>
       <div class="detail-box" id="trendPanel">
@@ -59,7 +59,7 @@ button:hover{transform:scale(1.03);}
       </div>
     </div>
 
-    <div class="card" onclick="toggleDetail('alarmPanel')" style="cursor:pointer;">
+    <div class="card" onclick="switchPage('reminder', null)" style="cursor:pointer;">
       <h2>⏰ AI 每日提醒</h2>
       <p>点击设置起床记录提醒</p>
       <div class="detail-box" id="alarmPanel">
@@ -68,7 +68,7 @@ button:hover{transform:scale(1.03);}
       </div>
     </div>
 
-    <div class="card" onclick="toggleDetail('calendarPanel')" style="cursor:pointer;">
+    <div class="card" onclick="switchPage('checkin', null)" style="cursor:pointer;">
       <h2>📅 梦境打卡</h2>
       <p>点击查看本月打卡日历</p>
       <div class="detail-box" id="calendarPanel">
@@ -134,6 +134,36 @@ button:hover{transform:scale(1.03);}
       <h2>我的数据</h2>
       <p>AI解析：15 次</p>
       <p>收藏梦境：8 条</p>
+    </div>
+  </div>
+
+  <div class="page" id="trend">
+    <div class="card">
+      <h2>📊 梦境趋势分析</h2>
+      <p>本周记录：7次</p>
+      <p>平均记录时长：126字</p>
+      <p>主要情绪：探索、成长、怀旧</p>
+      <button onclick="switchPage('home', document.querySelector('.menu-item'))">返回首页</button>
+    </div>
+  </div>
+
+  <div class="page" id="reminder">
+    <div class="card">
+      <h2>⏰ 梦境提醒</h2>
+      <p>推荐起床记录时间：07:30</p>
+      <p>建议睡前 30 分钟减少电子设备使用。</p>
+      <button onclick="switchPage('home', document.querySelector('.menu-item'))">返回首页</button>
+    </div>
+  </div>
+
+  <div class="page" id="checkin">
+    <div class="card">
+      <h2>📅 梦境打卡</h2>
+      <p>连续打卡：7天</p>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:12px;">
+        <div>1✓</div><div>2✓</div><div>3</div><div>4✓</div><div>5</div><div>6✓</div><div>7✓</div>
+      </div>
+      <button onclick="switchPage('home', document.querySelector('.menu-item'))">返回首页</button>
     </div>
   </div>
 
