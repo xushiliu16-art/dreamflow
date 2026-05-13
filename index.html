@@ -32,6 +32,9 @@ button:hover{transform:scale(1.03);}
 .card{transition:transform .25s ease, box-shadow .25s ease;transform-style:preserve-3d;}
 .card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 18px 35px rgba(0,0,0,.12);} 
 #particles{position:fixed;inset:0;pointer-events:none;z-index:-1;}
+
+.hero:hover{transform:scale(1.01);box-shadow:0 20px 40px rgba(0,0,0,.12);transition:.35s;}
+.dream-item:hover{transform:translateX(6px);transition:.25s;}
 </style>
 </head>
 <body>
@@ -140,6 +143,32 @@ button:hover{transform:scale(1.03);}
   <div class="page" id="trend">
     <div class="card">
       <h2>📊 梦境趋势分析</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0;">
+        <div class="card" onclick="toggleDetail('emotion1')" style="cursor:pointer;padding:16px;">
+          😌 平静
+          <div class="detail-box" id="emotion1">最近出现：8次<br>关键词：海边、星空、散步<br>AI判断：恢复期。</div>
+        </div>
+        <div class="card" onclick="toggleDetail('emotion2')" style="cursor:pointer;padding:16px;">
+          🤔 思考
+          <div class="detail-box" id="emotion2">最近出现：5次<br>关键词：考试、工作、选择<br>AI判断：成长压力。</div>
+        </div>
+        <div class="card" onclick="toggleDetail('emotion3')" style="cursor:pointer;padding:16px;">
+          🔥 高能
+          <div class="detail-box" id="emotion3">最近出现：4次<br>关键词：奔跑、追逐、挑战<br>AI判断：行动欲增强。</div>
+        </div>
+        <div class="card" onclick="toggleDetail('emotion4')" style="cursor:pointer;padding:16px;">
+          😔 怀旧
+          <div class="detail-box" id="emotion4">最近出现：6次<br>关键词：童年、学校、故乡<br>AI判断：情感回溯。</div>
+        </div>
+      </div>
+      <div class="card" style="padding:18px;">
+        <h3>🧠 AI人格画像</h3>
+        <p>你当前更偏向：探索型 + 感知型人格</p>
+      </div>
+      <div class="card" style="padding:18px;">
+        <h3>🌌 梦境关键词宇宙</h3>
+        <p>#成长 #未知 #关系 #怀旧 #目标</p>
+      </div>
       <p>本周记录：7次</p>
       <p>平均记录时长：126字</p>
       <p>主要情绪：探索、成长、怀旧</p>
